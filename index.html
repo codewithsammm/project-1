@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: space-around;
+      width: 300px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .choice {
+      background: white;
+      color: #333;
+      padding: 15px;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .choice:hover {
+      background: #ffcc00;
+      transform: scale(1.1);
+    }
+
+    .result {
+      font-size: 1.8rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .btn {
+      margin-top: 30px;
+      background: #ffcc00;
+      color: #333;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <div class="scoreboard">
+    <p>You: <span id="user-score">0</span></p>
+    <p>Computer: <span id="computer-score">0</span></p>
+  </div>
+  <div class="choices">
+    <div class="choice" onclick="playGame('rock')">✊ Rock</div>
+    <div class="choice" onclick="playGame('paper')">✋ Paper</div>
+    <div class="choice" onclick="playGame('scissors')">✌ Scissors</div>
+  </div>
+  <div class="result" id="result">Make your move!</div>
+  <button class="btn" onclick="resetGame()">Restart Game</button>
+
+  <script>
+    let userScore = 0;
+    let computerScore = 0;
+
+    function playGame(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      let result = '';
+      if (userChoice === computerChoice) {
+        result = "It's a Draw! Both chose " + userChoice;
+      } else if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = `You Win! ${userChoice} beats ${computerChoice}`;
+        userScore++;
+      } else {
+        result = `You Lose! ${computerChoice} beats ${userChoice}`;
+        computerScore++;
+      }
+
+      document.getElementById('result').textContent = result;
+      document.getElementById('user-score').textContent = userScore;
+      document.getElementById('computer-score').textContent = computerScore;
+    }
+
+    function resetGame() {
+      userScore = 0;
+      computerScore = 0;
+      document.getElementById('user-score').textContent = userScore;
+      document.getElementById('computer-score').textContent = computerScore;
+      document.getElementById('result').textContent = "Make your move!";
+    }
+  </script>
+</body>
+</html>
